@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+
+    <script type="text/babel">
+    class List extends React.Component{
+       constructor(prop){
+           super(prop);
+           this.state = {
+               saramList : prop.data
+           }
+       } 
+       
+       mkList(){
+          return this.state.saramList.map(function(saram){
+                return <li> {saram.name}님의 이메일{saram.email} </li>;
+           });
+       }
+
+
+
+       mkList_for(){
+           let saramlist = this.state.saramList;
+           let list = [];
+            for(var i=0; i<saramlist.length; i++){
+                list.push(<li>이름 : {saramlist[i].name}  이메일 : {saramlist[i].email}</li>)
+            }
+ 
+           return list;
+       }
+
+       render(){
+           return (
+               <div>
+                    <ul>
+                        {
+                            //console.log(this.state.saramList)
+                            //화면에 목록으로 출력되도록 해주세요 (map을 이용)
+                            this.mkList()
+                        }
+
+                    </ul>
+                </div>
+           );
+       }
+       
+    } // End of List component
+
+
+    class Input extends React.Component{
+        constructor(prop){
+            super(prop);
+            this.state={
+
+            }
+        }
+        inputData(event){
+            event.preventDefault();
+            console.log(event.target.name.value, event.target.email.value);
+            //데이터를 받아서 부모의 이벤트 핸들러로 전달한다.
+            
+        }
+
+        render(){
+            return(
+                <div>
+                    <form onSubmit={this.inputData}>
+                        성 명:<input type="text" name="name"/>
+                        이메일 :<input type="text햣 " name="email" />
+                        <input type="submit" value="저장" />
+                    </form>
+                </div>
+            );
+        }
+    }
+
+        class App extends React.Component{
+            constructor(prop){
+                super(prop);
+                this.saramList=[
+                    {name:"LEE", email:"a1@naver.com"},
+                    {name:"KIM", email:"a2@naver.com"},
+                    {name:"PARK", email:"a3@naver.com"}
+                ]
+                // 수정, 변경이 있는 데이터는 state에 만든다.
+                this.state={
+                    
+                }
+            }
+
+            render() {
+                return (
+                    <div>
+                    <div>Saram List</div>
+                    <Input />
+                      <List data={this.saramList} />
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<App />, document.getElementById("root"));
+    
+    </script>
+    
+</body>
+</html>

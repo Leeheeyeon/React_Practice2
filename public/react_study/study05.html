@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+
+
+
+
+    <script type="text/babel">
+    class App extends React.Component{
+        constructor(prop){
+            super(prop);
+            this.state={
+                time : new Date(Date())
+            }
+            
+            this.componentDidMount = this.componentDidMount.bind(this);
+        }
+        
+        render(){
+            console.log("render() .... 언제 실행되닝")
+            return(
+                <div>
+                    <h1>⌛To do List⏳</h1>
+                    <h3>{this.state.time.getHours()}시 
+                        {this.state.time.getMinutes()}분 
+                        {this.state.time.getSeconds()}초</h3>
+                </ div>
+            )
+        }
+
+        // 컴포넌트가 화면에 출력될 때 호출
+        componentDidMount(){
+            console.log("componentDidMount() .... 언제 실행되닝")
+            // setState() 호출할 때 시간이 변경되도록 한다.
+            // setInterval()의 콜백함수로 function을 쓰는 것과 람다식을 쓸 때 this는 다르다!
+            setInterval(() => {
+                // 여기서 this를 쓰면 여기서의 this는 setInerval이 된다.
+                this.state({
+                    time : new Date(Date())
+                });
+            }, 1000);
+        }
+
+        // 컴포넌트가 화면에서 제거되기 직전에 호출
+        componentWillUnmount(){
+            console.log("componentWillUnmount() ... 언제 실행되닝");
+        }
+    }
+
+
+    ReactDOM.render(<App />, document.getElementById("root"));
+    
+    </script>
+</body>
+</html>

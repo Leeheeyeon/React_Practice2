@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />   
+    <title>Document</title> <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="http://code.jquery.com/jquer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/6.0.0-beta.5/react-router-dom.development.min.js" integrity="sha512-TiWt+/zNszuGCuskwZC9dSHZ/yFcHzfeEbFY2jniIZDHZNQJq2MLhjuyI4WhxyQznTh/hncrRJah9dwLDqVMpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <div id="study02"></div>
+
+<!--    
+    <script type="text/babel">
+
+        const Calc = ({prop}) => {
+            //const title = "계산기";
+            return(
+                <div>
+                    <h4>Calc🍁</h4>
+                    <p>{prop.title}</p>
+                </div>
+            )
+        }
+
+// prop : 속성에서 전달받은 것을 사용할 수 있게 만들어줌. 컴포넌트 사용 시 값을 전달할 수 있음 -> prop 파라미터로 포함된당
+// ex) <Calc title="계산기" /> 의 title을 쓸면 화살표 함수 안에 prop를 넣어주고, 사용 시에는 {prop.title}이라고 해준다.
+
+        const Study02App = () => {
+            return(
+                <div>
+                    <h2>study02.html</h2>
+                    <Calc title="계산기"/>
+                </div>
+            );
+        }
+        ReactDOM.render(<Study02App />, document.getElementById("study02"));
+    </script>
+
+    위 코드를 아래처럼 변경도 가능! 
+    변경한 이유 : prop는 단방향이기 때문에 부모컴포넌트에서 값을 전달 받을 수만 있음.  
+    즉, 값을 위로 보내줄 순 없기 때문에 state를 사용하지 않고 바로 title을 사용할 수있도록 바꿔준 것
+ -->
+
+
+
+
+    <script type="text/babel">
+
+        const Calc = ( {title, onClickEvent} ) => {
+          
+            return(
+                <div>
+                    <h4>Calc🍁</h4>
+                    <p>{title}</p>
+                    <button onClick={onClickEvent}>클릭하슈</button>
+                </div>
+            )
+        }
+        
+        const Study02App = () => {
+            const clickFn = (event)  => {
+                console.log(event.target.innerText);
+              
+            }
+            let appTitle = "계산기2";
+            return(
+                <div>
+                    <h2>study02.html</h2>
+                    <Calc title={appTitle} onClickEvent={clickFn}/>
+                </div>
+            );
+        }
+        ReactDOM.render(<Study02App />, document.getElementById("study02"));
+    </script>
+  </body>
+</html>

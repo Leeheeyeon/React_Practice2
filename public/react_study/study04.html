@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="todoList"></div>
+
+
+    <script type="text/babel">
+
+
+
+
+
+
+        class TodoList extends React.Component{
+            constructor(prop){
+                super(prop);
+                this.state={
+                    title : prop.title,
+                    count : 0
+                }
+                //setState를 사용하기 위한 bind 설정
+                //upCount에서 this를 사용하기 위해서 사용할 수 있도록 설정해주는 것
+                // 생성자니까 반드시 생성자 영역안에서 함수 bind(this)해야 해당 객체 사용 가능
+                // => 메소드 안에서 this가 bind되어있지 않기 때문에 this를 바로 사용할 수 없음
+                // 그래서 this를 bind시켜준 것
+                this.upCount = this.upCount.bind(this);
+            }
+        
+            // 이벤트 핸들러 연결하기 - 클릭 시 +1 증가 이벤트
+            upCount(event){
+                this.setState({
+                    count : this.state.count+1
+                });
+                if(this.state.count>=9){
+                    alert("벌써 10개 클릭했쥬~");
+                }
+            }
+
+            render(){
+
+                return (
+                    <div>
+                        <h3>{this.state.title}</h3>
+                        <p>클릭 수 : {this.state.count}</p>
+                        <button onClick={this.upCount}>💚</button>
+                    </div>                  
+                );
+            }
+        }
+
+
+
+        class TodoListApp extends React.Component{ //class를 이용해서 컴포넌트 리턴해주기
+            constructor(prop){
+                super(prop); //부모의 생성자를 명시적으로 꼭 호출해줘야 함
+            }
+
+            render(){
+                return(
+                    <div>
+                        <h1>💌To Do List💌</h1>
+                        <TodoList title="🗨️목록🗨️" />
+
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<TodoListApp />, document.getElementById("todoList"));
+
+    
+    </script>
+    
+</body>
+</html>
